@@ -48,5 +48,5 @@ class KerasModel:
             self.model.fit_generator(train_generator,
                                      steps_per_epoch=len(train_images) // self.batch_size,
                                      epochs=64,
-                                     verbose=0)
+                                     verbose=1)
             self.model.save_weights(self.model_filepath, True)
