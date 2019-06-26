@@ -8,7 +8,7 @@ from discord.ext import commands
 import config
 from emote_recognizer import EmoteRecognizer
 
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix=config.discord_bot_command_prefix)
 emote_recognizer = EmoteRecognizer()
 
 
