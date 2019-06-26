@@ -3,8 +3,9 @@
 The EmoteRecognizer is a discord bot deciding if an emote is more likely a kappa or a peepo emote.
 This repo also contains a trained neural network and all the training data used.
 
-Note: I don't own any of the training data in this repo.
+![alt text](data/example.png)
 
+Note: I don't own any of the training data in this repo.
 
 # How to use
 
