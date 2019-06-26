@@ -1,7 +1,10 @@
 # EmoteRecognizer
 
 The EmoteRecognizer is a discord bot deciding if an emote is more likely a kappa or a peepo emote.
-This repo also contains a trained model and all the training data used.
+This repo also contains a trained neural network and all the training data used.
+
+Note: I don't own any of the training data in this repo.
+
 
 # How to use
 
@@ -20,9 +23,10 @@ The following modules need to be installed via pip:
 *  requests
 *  discord.py
 
-Now you can start the discord bot:
+Start the discord bot via:
 ```bash
 $ python discord_bot.py
 ```
-You should use a recent python version.
+A recent python version like 3.7.3 is required.
+
 You can now use the !emote command on your discord to validate an emote.

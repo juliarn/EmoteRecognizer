@@ -14,6 +14,10 @@ emote_recognizer = EmoteRecognizer()
 
 @bot.event
 async def on_ready():
+    """
+    Changes the presence of the bot as defined in the config
+    """
+
     avatar = bytes(requests.get(config.discord_bot_avatar).content)
     await bot.user.edit(username=config.discord_bot_name, avatar=avatar)
 
@@ -25,14 +29,22 @@ async def on_ready():
 
 @bot.command(name="emote")
 async def emote_command(context: commands.Context, emote: typing.Union[discord.PartialEmoji, str]):
-    if isinstance(emote, discord.PartialEmoji):
-        emote.animated = False
+    """
+    Handles the emote command
+
+    :param context: the command context
+    :param emote: the emote object or an url to the image of the emote
+    """
+
+    if isinstance(emote, discord.PartialEmoji):  # the user has provided a custom emote
+        emote.animated = False  # make sure the image of the emote is not animated
         url = emote.url
-    else:
+    else:  # the user has provided an url-string
         url = emote
     try:
         image_array = emote_recognizer.parse_image(url)
-        emote_type = emote_recognizer.recognize(image_array)
+        emote_type = emote_recognizer.predict(image_array)
+
         await context.send(embed=response_embed(True, f"This emote is more likely from type {emote_type.name}!", url))
     except cv2.error:
         await context.send(embed=response_embed(False, "Couldn't analyze this emote!"))
@@ -40,10 +52,26 @@ async def emote_command(context: commands.Context, emote: typing.Union[discord.P
 
 @emote_command.error
 async def emote_command_error(context: commands.Context, _):
+    """
+    Handles the emote command executed with wrong arguments
+
+    :param context: the command context
+    :param _: the error object
+    """
+
     await context.send(embed=response_embed(False, "Please provide a custom emote!"))
 
 
 def response_embed(success, text, url=None):
+    """
+    Creates a response embed which will be send to the user
+
+    :param success: if the emote could be analyzed
+    :param text: the text of the embed
+    :param url: the url for an image on the embed
+    :return: the new embed
+    """
+
     title = "Emote analyzed!" if success else "Error while analyzing."
     color = discord.Color.dark_green() if success else discord.Color.dark_red()
 

@@ -6,6 +6,16 @@ import numpy
 
 
 class TrainingImage:
+    """
+    Represents an image that should be used for training
+
+    Attributes
+    -----------
+    file_path:
+        The path to the file of this image
+    image_type:
+        The label of this file, 0 for peepo, 1 for kappa
+    """
 
     def __init__(self, file_path, image_type):
         self.file_path = file_path
@@ -22,7 +32,13 @@ class TrainingData:
         self.training_data = peepo_data + kappa_data
         random.shuffle(self.training_data)
 
-    def get_data(self):
+    def parse_data(self):
+        """
+        Resizes all images to the same size and turns them into arrays
+
+        :return: the training images as array and a list of their specific labels
+        """
+
         train_images = []
         train_labels = []
         for train_image in self.training_data:
